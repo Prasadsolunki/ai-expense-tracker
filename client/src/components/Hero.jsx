@@ -1,6 +1,8 @@
 import { Button } from "@/components/ui/button";
+import { useNavigate } from "react-router-dom";
 
 export default function Hero() {
+	const navigate = useNavigate();
 	return (
 		<section className="relative overflow-hidden bg-gradient-to-b from-neutral-50 to-white dark:from-neutral-950 dark:to-neutral-900">
 			<div className="mx-auto max-w-7xl px-4 py-16 md:py-24">
@@ -13,8 +15,8 @@ export default function Hero() {
 							Automate receipt scanning, categorize transactions, and visualize your spending in real time.
 						</p>
 						<div className="mt-6 flex flex-wrap gap-3">
-							<Button>Start free</Button>
-							<Button variant="secondary">Live demo</Button>
+							<Button onClick={() => navigate('/login')}>Get Started</Button>
+							<Button variant="secondary" onClick={() => navigate('/register')}>Create account</Button>
 						</div>
 					</div>
 					<div className="relative">

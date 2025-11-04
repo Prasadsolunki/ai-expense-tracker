@@ -3,14 +3,16 @@ import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger, SheetClose } from "@/components/ui/sheet";
 import { NavigationMenu, NavigationMenuItem, NavigationMenuLink } from "@/components/ui/navigation-menu";
+import { useNavigate } from "react-router-dom";
 
 export default function Header() {
 	const [open, setOpen] = useState(false);
+	const navigate = useNavigate();
 
 	return (
 		<header className="sticky top-0 z-50 w-full border-b border-neutral-200 bg-white/80 backdrop-blur-sm dark:border-neutral-800 dark:bg-neutral-950/80">
 			<div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 md:py-4">
-				<div className="flex items-center gap-2">
+				<div className="flex items-center gap-2" onClick={() => navigate('/')}>
 					<div className="h-8 w-8 rounded-md bg-black dark:bg-white" />
 					<span className="text-base font-semibold">AI Expense</span>
 				</div>
@@ -23,15 +25,11 @@ export default function Header() {
 						<NavigationMenuItem>
 							<NavigationMenuLink href="#testimonials">Testimonials</NavigationMenuLink>
 						</NavigationMenuItem>
-						<NavigationMenuItem>
-							<NavigationMenuLink href="#pricing">Pricing</NavigationMenuLink>
-						</NavigationMenuItem>
 					</NavigationMenu>
 				</nav>
 
 				<div className="hidden items-center gap-2 md:flex">
-					<Button variant="ghost">Sign in</Button>
-					<Button>Get Started</Button>
+					<Button onClick={() => navigate('/login')}>Get Started</Button>
 				</div>
 
 				<div className="md:hidden">
