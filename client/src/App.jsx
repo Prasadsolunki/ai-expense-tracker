@@ -3,6 +3,7 @@ import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import Features from "@/components/Features";
 import Testimonials from "@/components/Testimonials";
+import FAQ from "@/components/FAQ";
 import Footer from "@/components/Footer";
 import Login from "@/components/auth/Login";
 import Register from "@/components/auth/Register";
@@ -21,9 +22,7 @@ function App(){
               <Hero />
               <Features />
               <Testimonials />
-              <section className="mx-auto max-w-7xl px-4 py-16">
-                <h2 className="mb-4 text-2xl font-semibold">Quick Add Expense</h2>
-              </section>
+              <FAQ />
             </main>
             <Footer />
           </>
