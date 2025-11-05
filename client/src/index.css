@@ -1,68 +1,67 @@
-:root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
+@layer base {
+	* {
+		@apply font-sans;
+	}
+	body {
+		font-family: 'Inter', sans-serif;
+	}
+	h1, h2, h3, h4, h5, h6 {
+		font-family: 'Poppins', sans-serif;
+	}
 }
 
-body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
-}
-
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
-
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+@layer utilities {
+	@keyframes accordion-down {
+		from {
+			height: 0;
+		}
+		to {
+			height: var(--radix-accordion-content-height);
+		}
+	}
+	@keyframes accordion-up {
+		from {
+			height: var(--radix-accordion-content-height);
+		}
+		to {
+			height: 0;
+		}
+	}
+	.animate-accordion-down {
+		animation: accordion-down 0.2s ease-out;
+	}
+	.animate-accordion-up {
+		animation: accordion-up 0.2s ease-out;
+	}
+	
+	.neon-glow {
+		text-shadow: 0 0 10px rgba(139, 92, 246, 0.5),
+					 0 0 20px rgba(139, 92, 246, 0.3),
+					 0 0 30px rgba(139, 92, 246, 0.2);
+	}
+	
+	.neon-border {
+		box-shadow: 0 0 10px rgba(139, 92, 246, 0.3),
+					0 0 20px rgba(139, 92, 246, 0.2),
+					inset 0 0 10px rgba(139, 92, 246, 0.1);
+	}
+	
+	.gradient-text {
+		@apply bg-gradient-to-r from-purple-400 via-pink-400 to-cyan-400 bg-clip-text text-transparent;
+	}
+	
+	.glow-hover {
+		transition: all 0.3s ease;
+	}
+	.glow-hover:hover {
+		box-shadow: 0 0 20px rgba(139, 92, 246, 0.4),
+					0 0 40px rgba(139, 92, 246, 0.2);
+		transform: translateY(-2px);
+	}
 }
