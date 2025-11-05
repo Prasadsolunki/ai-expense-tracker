@@ -2,8 +2,9 @@ import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { toast } from 'sonner'
 import { Button } from '@/components/ui/button'
-import Header from '@/components/Header'
+import Header from '@/components/home/Header'
 import { useAuth } from '@/providers/AuthProvider'
+import api from '@/api/axios'
 
 export default function Login(){
 	const navigate = useNavigate()
@@ -11,16 +12,23 @@ export default function Login(){
 	const [email, setEmail] = useState('')
 	const [password, setPassword] = useState('')
 
-	function onSubmit(e){
-		e.preventDefault()
-		if (!email || !password){
-			toast.error('Email and password are required')
-			return
-		}
-		login({ email })
+	async function onSubmit(e){
+	e.preventDefault()
+	if (!email || !password){
+		toast.error('Email and password are required')
+		return
+	}
+	try {
+		const res = await api.post('/auth/login', { email, password })
+		const token = res.data.token
+		localStorage.setItem('accessToken', token)
 		toast.success('Welcome back!')
 		navigate('/dashboard')
+	} catch (err){
+		console.error(err)
+		toast.error(err.response?.data?.message || 'Invalid credentials')
 	}
+}
 
 	return (
 		<div className="min-h-screen bg-white text-neutral-900 dark:bg-neutral-950 dark:text-neutral-100">
@@ -38,7 +46,9 @@ export default function Login(){
 						<label className="mb-1 block text-sm">Password</label>
 						<input type="password" value={password} onChange={(e)=>setPassword(e.target.value)} className="w-full rounded-md border border-neutral-300 bg-white px-3 py-2 text-sm outline-none focus:border-neutral-500 dark:border-neutral-700 dark:bg-neutral-900" placeholder="••••••••" />
 						<div className="mt-2 text-right">
-							<button type="button" onClick={()=>toast.message('Password reset coming soon')} className="text-sm text-neutral-600 underline hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-200">Forgot password?</button>
+							<Link to="/forgot-password" className="text-sm text-neutral-600 underline hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-200">
+  							Forgot password?
+							</Link>
 						</div>
 					</div>
 					<Button className="w-full" type="submit">Sign in</Button>
