@@ -2,8 +2,9 @@ import { useState, useRef } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { toast } from 'sonner'
 import { Button } from '@/components/ui/button'
-import Header from '@/components/Header'
+import Header from '@/components/home/Header'
 import { useAuth } from '@/providers/AuthProvider'
+import api from '@/api/axios'
 
 export default function Register(){
 	const navigate = useNavigate()
@@ -39,16 +40,22 @@ export default function Register(){
 		reader.readAsDataURL(file)
 	}
 
-	function onSubmit(e){
-		e.preventDefault()
-		if (!name || !email || !password){
-			toast.error('Name, email and password are required')
-			return
-		}
-		register({ name, email, password, avatarUrl })
-		toast.success('Account created!')
-		navigate('/dashboard')
+	async function onSubmit(e) {
+	e.preventDefault()
+	if (!name || !email || !password) {
+		toast.error('Name, email and password are required')
+		return
 	}
+	try {
+		const res = await api.post('/auth/register', { name, email, password, avatarUrl })
+		toast.success('Account created!')
+		navigate('/login')
+	} catch (err){
+		console.error(err)
+		toast.error(err.response?.data?.message || 'Registration failed')
+	}
+	}
+
 
 	return (
 		<div className="min-h-screen bg-white text-neutral-900 dark:bg-neutral-950 dark:text-neutral-100">
