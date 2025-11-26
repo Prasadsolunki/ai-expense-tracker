@@ -9,4 +9,14 @@ const api = axios.create({
   },
 });
 
+// Attach token from localStorage if present (helps with protected endpoints)
+api.interceptors.request.use((config) => {
+  const token = localStorage.getItem('ai-expense-token');
+  if (token) {
+    config.headers = config.headers || {}
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+  return config;
+});
+
 export default api;
